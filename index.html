@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
-    <title>My Webpage</title>
-
-    <h1>Hello navaP !</h1>
-
+  <head>
+    <title>Custom Street View panoramas</title>
+    <meta charset="utf-8">
     <style>
       html, body, #map-canvas {
         height: 100%;
@@ -13,54 +12,51 @@
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script>
-var cafe = new google.maps.LatLng(37.869085,-122.254775);
-
 function initialize() {
-
-  var panoramaOptions = {
-    position: cafe,
-    pov: {
-      heading: 270,
-      pitch: 0
-    },
-    visible: true
+  // Set up Street View and initially set it visible. Register the
+  // custom panorama provider function. Set the StreetView to display
+  // the custom panorama 'reception' which we check for below.
+  var panoOptions = {
+    pano: 'reception',
+    visible: true,
+    panoProvider: getCustomPanorama
   };
-  var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
 
-  google.maps.event.addListener(panorama, 'pano_changed', function() {
-      var panoCell = document.getElementById('pano_cell');
-      panoCell.innerHTML = panorama.getPano();
-  });
+  var panorama = new google.maps.StreetViewPanorama(
+    document.getElementById('map-canvas'), panoOptions);
+}
 
-  google.maps.event.addListener(panorama, 'links_changed', function() {
-      var linksTable = document.getElementById('links_table');
-      while(linksTable.hasChildNodes()) {
-        linksTable.removeChild(linksTable.lastChild);
-      };
-      var links =  panorama.getLinks();
-      for (var i in links) {
-        var row = document.createElement('tr');
-        linksTable.appendChild(row);
-        var labelCell = document.createElement('td');
-        labelCell.innerHTML = '<b>Link: ' + i + '</b>';
-        var valueCell = document.createElement('td');
-        valueCell.innerHTML = links[i].description;
-        linksTable.appendChild(labelCell);
-        linksTable.appendChild(valueCell);
+// Return a pano image given the panoID.
+function getCustomPanoramaTileUrl(pano, zoom, tileX, tileY) {
+  // Note: robust custom panorama methods would require tiled pano data.
+  // Here we're just using a single tile, set to the tile size and equal
+  // to the pano "world" size.
+  return 'geoPanos/1.jpg';
+}
+
+// Construct the appropriate StreetViewPanoramaData given
+// the passed pano IDs.
+function getCustomPanorama(pano, zoom, tileX, tileY) {
+  if (pano == 'reception') {
+    return {
+      location: {
+        pano: 'reception',
+        description: 'Google Sydney - Reception'
+      },
+      links: [],
+      // The text for the copyright control.
+      copyright: 'Imagery (c) 2010 Google',
+      // The definition of the tiles for this panorama.
+      tiles: {
+        tileSize: new google.maps.Size(1024, 512),
+        worldSize: new google.maps.Size(1024, 512),
+        // The heading in degrees at the origin of the panorama
+        // tile set.
+        centerHeading: 105,
+        getTileUrl: getCustomPanoramaTileUrl
       }
-  });
-
-  google.maps.event.addListener(panorama, 'position_changed', function() {
-      var positionCell = document.getElementById('position_cell');
-      positionCell.firstChild.nodeValue = panorama.getPosition() + '';
-  });
-
-  google.maps.event.addListener(panorama, 'pov_changed', function() {
-      var headingCell = document.getElementById('heading_cell');
-      var pitchCell = document.getElementById('pitch_cell');
-      headingCell.firstChild.nodeValue = panorama.getPov().heading + '';
-      pitchCell.firstChild.nodeValue = panorama.getPov().pitch + '';
-  });
+    };
+  }
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -68,23 +64,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
     </script>
   </head>
   <body>
-    <div id="pano" style="width: 45%; height: 100%;float:left"></div>
-    <div id="panoInfo" style="width: 45%; height: 100%;float:left">
-    <table>
-      <tr>
-        <td><b>Position</b></td><td id="position_cell">&nbsp;</td>
-      </tr>
-      <tr>
-        <td><b>POV Heading</b></td><td id="heading_cell">270</td>
-      </tr>
-      <tr>
-        <td><b>POV Pitch</b></td><td id="pitch_cell">0.0</td>
-      </tr>
-      <tr>
-        <td><b>Pano ID</b></td><td id="pano_cell">&nbsp;</td>
-      </tr>
-      <table id="links_table"></table>
-    </table>
-    </div>
+    <div id="map-canvas"></div>
   </body>
 </html>
