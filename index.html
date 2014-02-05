@@ -11,11 +11,12 @@
   </head>
 
   <body>
-    <p id="demo">Click the button to get your position:</p>
     <button onclick="getLocation()">Smart Locate Me !</button>
+    <p id="demo">Click the button to get your position:</p>
+
     <div id="mapholder"></div>
     <script>
-    
+
     var x=document.getElementById("demo");
     function getLocation()  
       {
@@ -28,10 +29,11 @@
 
     function showPosition(position)
       {
+
+      x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude; 
       var latlon=position.coords.latitude+","+position.coords.longitude;
 
-      var img_url="http://maps.googleapis.com/maps/api/staticmap?center="
-      +latlon+"&zoom=14&size=400x300&sensor=false";
+      var img_url="http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&sensor=false";
       document.getElementById("mapholder").innerHTML="<img src='"+img_url+"'>";
       }
 
@@ -45,14 +47,13 @@
         case error.POSITION_UNAVAILABLE:
           x.innerHTML="Location information is unavailable."
           break;
-        case error.TIMEOUT:
-          x.innerHTML="The request to get user location timed out."
-          break;
-        case error.UNKNOWN_ERROR:
-          x.innerHTML="An unknown error occurred."
-          break;
         }
       }
     </script>
 </body>
+
+<div data-role="footer">
+    <h1>HTML5 . jQuery . gMaps</h1>
+</div>
+
 </html>
