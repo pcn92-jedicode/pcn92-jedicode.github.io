@@ -5,11 +5,11 @@ var x=document.getElementById("demo");
       {
         navigator.geolocation.getCurrentPosition(showPosition);
       }
-      else{p.innerHTML="Geolocation is not supported by this browser.";}
+      else{x.innerHTML="Geolocation is not supported by this browser.";}
     }
     
     function showPosition(position)
     {
-      p.innerHTML="Latitude: " + position.coords.latitude + 
+      x.innerHTML="Latitude: " + position.coords.latitude + 
       "<br>Longitude: " + position.coords.longitude;	
     }
