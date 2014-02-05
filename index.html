@@ -18,7 +18,7 @@
 
   <body>
 
-    <button onclick="getLocation()"> Smart Locate Me </button>
+    <button onclick="initialize()"> Smart Locate Me </button>
     <p id="demo"></p>
 
     <script>
@@ -49,11 +49,10 @@
       mapOptions);
       }
 
-      google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 
 
-    <div id="map-canvas"></div>
+    <p id="map-canvas"></p>
 
 
   </body>
