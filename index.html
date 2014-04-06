@@ -1,59 +1,133 @@
 <!DOCTYPE html>
 <html>
-
   <head>
+    <title>Walk My Way</title>
 
-      <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
-      <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-      <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-      <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+
+    <script src="./wmw.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" media="all "type="text/css" href="http://netdna.bootstrapcdn.com/bootswatch/3.1.1/united/bootstrap.min.css">
+    <link rel="stylesheet" media="all "type="text/css" href="./cstyle.css">
+
+    <!-- Firebase link -->
+    <script src='https://cdn.firebase.com/js/client/1.0.11/firebase.js'></script>
 
   </head>
 
+
   <body>
-    <button onclick="getLocation()">Smart Locate Me !</button>
-    <p id="demo">Click the button to get your position:</p>
+    
 
-    <div id="mapholder"></div>
-    <script>
 
-    var x=document.getElementById("demo");
-    function getLocation()  
-      {
-      if (navigator.geolocation)
-        {
-        navigator.geolocation.getCurrentPosition(showPosition,showError);
-        }
-      else{x.innerHTML="Geolocation is not supported by this browser.";}
-      }
 
-    function showPosition(position)
-      {
+  <div class="navbar navbar-inverse">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+    <div class="navbar-collapse navbar-inverse-collapse collapse" style="height: 1px;">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Active</a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Dropdown header</li>
+            <li><a href="#">Separated link</a></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left">
+        <input type="text" class="form-control col-lg-8" placeholder="Search">
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>  
 
-      x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude; 
-      var latlon=position.coords.latitude+","+position.coords.longitude;
+  <h1>Walk My Way</h1>
+  <h2>a 72 Hr Ride</h2>
 
-      var img_url="http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&sensor=false";
-      document.getElementById("mapholder").innerHTML="<img src='"+img_url+"'>";
-      }
 
-    function showError(error)
-      {
-      switch(error.code) 
-        {
-        case error.PERMISSION_DENIED:
-          x.innerHTML="User denied the request for Geolocation."
-          break;
-        case error.POSITION_UNAVAILABLE:
-          x.innerHTML="Location information is unavailable."
-          break;
-        }
-      }
-    </script>
-</body>
+  <!-- del -->
+    <header class="main" id="siteheader">
+  <!-- del -->
 
-<div data-role="footer">
-    <h1>HTML5 . jQuery . gMaps</h1>
-</div>
+    
+
+    <nav id="top_always">
+      <ul>
+        <li id="home_menu"> <a class="home" href="/"> Home</a></li>
+        <li id="create_route"> <a class="create"href="/"> Create</a></li>
+        <li id="choose_route"> <a class="choose"href="/"> Choose<!--Take a Safe Path--></a></li>
+        <li id="chase_me"> <a class="store"href="http://www.google.com"> Chase ME</a></li>
+      </ul>
+    </nav>
+  <!-- del -->
+  </header>
+
+    <img width="200" height="128" alt="A Silly Logo"src="./logo_silly.png" >
+
+
+<video autoplay></video>
+<img src="">
+<canvas style="display:none;"></canvas>
+
+
+    <!-- Bottom Always -->
+
+    <nav id="bottom_always">
+      <table>
+
+        <tr>
+          <button type="track_begin" class="btn btn-primary btn-lg" onclick="track()">
+            <span class="glyphicon glyphicon-screenshot"></span>Track
+          </button>
+
+          <button type="track_stop" class="btn btn-primary btn-lg">
+            <span class="glyphicon glyphicon-eye-close"></span> Stop
+          </button>
+        </tr>
+
+        <tr>
+          <button type="camera" class="btn btn-primary btn-lg" onclick="snapshot()">
+            <span class="glyphicon glyphicon-camera"></span> Capture
+          </button>
+
+          <button type="checkin" class="btn btn-primary btn-lg">
+            <span class="glyphicon glyphicon-map-marker"></span> Check In
+          </button>
+        </tr>
+
+        
+      </table>
+    </nav>
+
+  </body>
 
 </html>
+
+
