@@ -1,7 +1,11 @@
 //track keeptracking
+
+  var username = prompt('Say you Name');
+
+
 var track = function(){
   navigator.geolocation.watchPosition(function(position) {
-  var myDataRef = new Firebase('https://shining-fire-3947.firebaseio.com/location');  
+  var myDataRef = new Firebase('https://shining-fire-3947.firebaseio.com/'+ username +'/location');  
   myDataRef.push($.now() + " " + position.coords.latitude + " "+ position.coords.longitude);
 });
 }
