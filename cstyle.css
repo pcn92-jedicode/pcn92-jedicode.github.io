@@ -1,5 +1,8 @@
 #bottom_always{
 	font-size: 60px;
+	bottom:0;
+	width: 100%;
+
 }
 
 #glory{
