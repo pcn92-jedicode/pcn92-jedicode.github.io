@@ -8,3 +8,8 @@
 #glory{
 	text-align: center;
 }
+
+#logo{
+	text-align: center;
+}
+.bottomaligned1 {position:absolute; bottom:0;  margin-bottom:7px; left: 0;}
