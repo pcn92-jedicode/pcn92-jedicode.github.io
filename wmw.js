@@ -51,3 +51,4 @@ else {
 //var myDataRef = new Firebase('https://shining-fire-3947.firebaseio.com/');
 
 //myDataRef.set('User ' + name + ' says ' + text);
+ 
